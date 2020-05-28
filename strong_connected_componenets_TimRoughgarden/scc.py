@@ -10,22 +10,13 @@ def DFS(G,i):
     is_explored[i] = True
     leader[i]=s
     if True:
-
         for j in G[i]:
             if is_explored[j]==False:
-          
                 DFS(G,j)
         t =t +1
         f[i]=t
-   # except:
-   #     t= t  + 1
-   #f[i]=t
-    #except BaseException  as e :
-    #    print(e)
-        
 
 def DFS_loop( G):
-    
     #n = sorted( G.keys(), reverse = True)
     n = len(G) 
     global s 
@@ -34,7 +25,6 @@ def DFS_loop( G):
         if is_explored[i] == False:
             s = i 
             DFS(G,i)  
-
 
 def main():
     global is_explored;global t; global f;global s;global leader 
