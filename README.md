@@ -3,7 +3,8 @@
 
 
 
-### references:  introduction to algorithm / algorithms design etc. i
+### references:  introduction to algorithm / algorithms design etc. 
+
 
 * Divide and Conquer, Sorting and Searching, and Randomized Algorithms
 * Graph Search, Shortest Paths, and Data Structures
