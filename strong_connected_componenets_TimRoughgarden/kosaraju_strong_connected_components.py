@@ -8,18 +8,17 @@ import threading
 def DFS(G,i):
     global t ; global is_explored;global leader ;global f 
     is_explored[i] = True
-    leader[i]=s
-    if len(G[i]) == 0 : 
-        t = t+1 
-        f[i] =t
-
-    else: 
-        for j in G[i]:
+    leader[i]=s 
+    
+    for j in G[i]:
+        try:
             if is_explored[j]==False:
                 DFS(G,j)
-        t =t +1
-        f[i]=t
-
+        except:
+            continue
+    t =t +1
+    f[i]=t
+   
 def DFS_loop( G):
     #n = sorted( G.keys(), reverse = True)
     n = len(G) 
@@ -43,7 +42,9 @@ def main():
             ver1,ver2 = row.strip().split(' ' ,1)
             ver1,ver2 = int(ver1)-1,int(ver2)-1
             G_new[ver2]+=[ver1]
-    DFS_loop(G_new)
+    
+    
+    DFS_loop(G_new) 
     print("finish reverse: and magical ordering length:      "+ str(len(f)))
     t= 0 ; s=None; is_explored = [False]*num_nodes; leader = dict()
     G_new =[]
@@ -52,8 +53,10 @@ def main():
             if len(row.strip().split())<2 :continue
             ver1,ver2 = row.strip().split(' ' ,1)
             ver1= int(ver1)-1;ver2=int(ver2)-1
+           
             ver1,ver2 = f[ver1],f[ver2]
-            G[ver1-1]+= [ver2-1]
+            G[ver1]+= [ver2]
+      
     DFS_loop(G)
     rst ={};rst2=[]
     for key,value in leader.items():
