@@ -9,7 +9,11 @@ def DFS(G,i):
     global t ; global is_explored;global leader ;global f 
     is_explored[i] = True
     leader[i]=s
-    if True:
+    if len(G[i]) == 0 : 
+        t = t+1 
+        f[i] =t
+
+    else: 
         for j in G[i]:
             if is_explored[j]==False:
                 DFS(G,j)
@@ -29,12 +33,13 @@ def DFS_loop( G):
 def main():
     global is_explored;global t; global f;global s;global leader 
     t = 0  ; f =dict() ; s = None ; leader = dict();
-    num_nodes=875714
+    num_nodes= 875714
     G = [[] for row in range(num_nodes)]
     G_new = [[] for row in range(num_nodes)]
     is_explored = [False] * num_nodes
     with open('SCC.txt') as ff:
         for row in ff:
+            if len(row.strip().split() )<2 :continue
             ver1,ver2 = row.strip().split(' ' ,1)
             ver1,ver2 = int(ver1)-1,int(ver2)-1
             G_new[ver2]+=[ver1]
@@ -44,6 +49,7 @@ def main():
     G_new =[]
     with open('SCC.txt') as ff:
         for row in ff:
+            if len(row.strip().split())<2 :continue
             ver1,ver2 = row.strip().split(' ' ,1)
             ver1= int(ver1)-1;ver2=int(ver2)-1
             ver1,ver2 = f[ver1],f[ver2]
