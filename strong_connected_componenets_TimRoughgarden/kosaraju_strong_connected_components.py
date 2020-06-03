@@ -11,7 +11,7 @@ def DFS(G,i):
     leader[i]=s 
     
     for j in G[i]:
-        try:
+        try:  # sink point 没有G[i]值
             if is_explored[j]==False:
                 DFS(G,j)
         except:
@@ -74,4 +74,4 @@ if __name__ =="__main__":
     thread = threading.Thread(target=main)       
     thread.start()
         
-   
+ 
