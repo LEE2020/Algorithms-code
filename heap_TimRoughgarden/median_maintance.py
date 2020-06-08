@@ -20,11 +20,11 @@ class  heap:
         idx_children = int(2*idx_parent +1) ,int(2*idx_parent +2)  # zero-based array 
         return idx_children 
     def get_parent(self, idx_child):
-        return int(idx_child/2) if idx_child %2 ==0 else int((idx_child-1) /2 )
+        return int((idx_child-2)/2) if idx_child %2 ==0 else int((idx_child-1) /2 )
     def bubble_up(self,heapdata,inode,t):
         if t == "max" :
             parent = self.get_parent(inode)
-            if parent < len(heapdata)  and heapdata[parent]<heapdata[inode]:
+            if parent >=0   and heapdata[parent]<heapdata[inode]:
             #    print("right")
                 heapdata[parent],heapdata[inode] = heapdata[inode],heapdata[parent]
             #    print("nnnnnn"+str(heapdata))
@@ -32,8 +32,10 @@ class  heap:
                 #heapdata[parent] ,heapdata[inode] = heapdata[inode],heapdata[parent]
         elif t == "min":
             parent = self.get_parent(inode)
-            if parent < len(heapdata) and heapdata[parent] > heapdata[inode]:
+            #print(parent, inode, parent < len(heapdata),heapdata[parent] ,heapdata[inode] )
+            if parent >= 0  and heapdata[parent] > heapdata[inode]:
                 #self.bubble_up(heapdata,parent,t)
+             #   print("swap " ,parent,inode) 
                 heapdata[parent],heapdata[inode] = heapdata[inode],heapdata[parent]
                 self.bubble_up(heapdata,parent,t)
                 
@@ -53,7 +55,30 @@ class  heap:
                     #self.bubble_down(heapdata,ichild,t)
                     heapdata[inode],heapdata[ichild] = heapdata[ichild],heapdata[inode]
                     self.bubble_down(heapdata,ichild,t)
-        return heapdata	
+        return heapdata
+    def bubble_down2(self,heapdata,inode,t):
+        if t=="max":
+             
+             child1,child2 = self.get_children(inode)
+             if child1 < len(heapdata) :
+                 children = child1 
+                 if child2 < len(heapdata):
+                     children = child1  if  heapdata[child1] > heapdata[child2] else child2
+                 if heapdata[children] > heapdata[inode]:
+                     heapdata[inode] , heapdata[children] = heapdata[children],heapdata[inode]
+                     self.bubble_down2(heapdata,children,t)
+        if t=="min":
+            child1 , child2 = self.get_children(inode)
+            if child1 < len(heapdata):
+                children = child1 
+                if child2 < len(heapdata):
+                    children = child1 if heapdata[child1] < heapdata[child2] else child2 
+                if heapdata[children] < heapdata[inode]:
+                    heapdata[children],heapdata[inode] = heapdata[inode],heapdata[children]
+                    self.bubble_down2(heapdata,children,t)
+
+
+        return heapdata   
     def is_balanced(self,heapdata,idx_parent,idx_child,t):
         if t =="max": is_balance=heapdata[idx_parent] > heapdata[idx_child] 
         if t=="min" : is_balance=heapdata[idx_parent] <  heapdata[idx_child]
@@ -64,10 +89,10 @@ class  heap:
     def median(self):
         min_heap = [] ; max_heap = [];rst=[]
         data = self.load_data()
-       
+        
         for stream in data:
-            if stream == 4289: print ("origin max_heap        " +str(max_heap)+str(max(max_heap)))
-            if stream == 4289: print(len(max_heap),len(min_heap))
+            #if stream == 4289: print ("origin max_heap        " +str(max_heap)+str(max(max_heap)))
+            #if stream == 4289: print(len(max_heap),len(min_heap))
             if len(min_heap) - len(max_heap) >=1 : 
                 max_heap.append(stream)
                 inode = len(max_heap) -1 
@@ -84,8 +109,8 @@ class  heap:
              
             if len(max_heap) >=1 and max_heap[0] > min_heap[0]:
                 max_heap[0],min_heap[0] = min_heap[0],max_heap[0]
-                self.bubble_down(max_heap,0,"max")
-                self.bubble_down(min_heap,0,"min")
+                self.bubble_down2(max_heap,0,"max")
+                self.bubble_down2(min_heap,0,"min")
         
             if len(max_heap) >= len(min_heap):
                 rst.append( max_heap[0])
@@ -97,17 +122,8 @@ class  heap:
          #       print(max_heap[0],max(max_heap))
          #       break
             #print(rst[-1])
-        return rst,max_heap,min_heap 
+        return rst 
 
 if __name__ =="__main__":
     oj = heap()
-    #data=oj.load_data()
-    #data=[4,9,8,1,3,2,6,7]
-    rst,max_heap,min_heap  = oj.median()
-    #print(max_heap[0]==max(max_heap))
-
-
-
-
-
-
+    print(sum(oj.median()) %10000) 
