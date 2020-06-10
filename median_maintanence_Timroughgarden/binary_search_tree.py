@@ -47,34 +47,68 @@ def findpos(root,pos):
             findpos(current,pos)
         cnt2 +=1 
         if cnt2 == pos: 
-            rst.append(root.value)
+            rst.append((pos,root.value))
         if root.right != None:
             current = root.right
             findpos(current,pos)
     return rst 
-        
-if __name__ == "__main__":
+                 
+def findvalue(root,value):
+    global rst2;global cnt 
+    if root == None:
+        return None
+    else:
+        if root.left !=None:
+            current = root.left
+            findvalue(current,value)
+        cnt += 1
+        if root.value == value: 
+            rst2.append(cnt)
+        if root.right != None:
+            current = root.right
+            findvalue(current,value)
+    return rst2 
+
+
+# inserts element ,In AVL tree insertion, we used rotation as a tool to do balancing after insertion caused imbalance. 
+#In Red-Black tree, we use two tools to do balancing.
+# recolor/ rotation 
+
+
+def avl_rotation(root):
+    pass
+def red_black_recolor(root):
+    pass 
+
+
+def inorder(root): 
+    if root: 
+        inorder(root.left) 
+        print(root.value) 
+        inorder(root.right)
+
+if __name__ =="__main__":
+    #r = Node(50) 
+    #insert(r,Node(30)) 
+    #insert(r,Node(20)) 
+    #insert(r,Node(40)) 
+    #insert(r,Node(70)) 
+    #insert(r,Node(60)) 
+    #insert(r,Node(80))
+#    inorder(r)
     data =[];flag = True
     with open('Median.txt') as f:
         for row in f:
             rows = int(row.strip().split()[0])
-            data.append(rows)
+            if flag == True:
+                r = Node(rows)
+                flag = False
+            insert(r,Node(rows))
     
- 
     global cnt ; global rst  ;global rst2 ; global cnt2 
-    cnt = 0 ; rst = [];cnt2 = 0 
-    flag = True ; result = []
-    for idx in range(len(data)):
-        if flag == True:
-            r = Node(data[idx])
-            flag = False 
-        else:
-            insert(r,Node(data[idx]))
-        current_node = int(countNodes(r))
-        current_median_pos = int(current_node / 2)  if current_node % 2 == 0 else  int((current_node +1 )/2 )
-        #print(current_node,current_median_pos,"current_median_pos")
-        current_median  =  findpos(r,current_median_pos)
-        result.append(current_median[0])
-        print(current_median[0])
-        cnt = 0;cnt2 = 0;rst = []
-    print(sum(result) % 10000)  
+    cnt = 0 ; rst = [];rst2= [];cnt2 = 0 
+    print("all nodes " +str(countNodes(r)))
+    median = int(nums/2) if nums %2 ==0 else int((nums+1)/2)
+    print("median " +str(findvalue(r,median)))   
+     
+
