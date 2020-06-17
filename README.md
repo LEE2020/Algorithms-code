@@ -1,4 +1,4 @@
-# Algorithms-tim-Roughgarden-(stanford | online)
+# Algorithms-prof.-(stanford | online)
 
 
 
