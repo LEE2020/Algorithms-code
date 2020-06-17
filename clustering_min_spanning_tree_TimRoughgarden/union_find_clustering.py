@@ -1,6 +1,31 @@
 import sys
 
+class UnionFind:
+    def __init__(self,N):
+        self.clusters = {key: key for key in range(N)} 
+    def find(self,p):
+        return self.clusters[p]
+    def union(self,p,q):
+        _i = self.clusters[p] 
+        _j = self.clusters[q] 
 
+        if _i != _j :
+            for inx in self.nclusters:
+                if self.nclusters[inx] == _j:
+                    self.nclusters[inx] = _i 
+
+
+def kruskal_MST(E):
+    sortedE = sorted(E, key = lambda x:x[2])
+    T = set()
+    uf = UnionFind(len(sortedE))
+    for vert1,vert2, weight in sortedE:
+        if uf.find(vert1) != uf.find(vert2):
+            uf.union(vert1,vert2)
+            T.add((vert1,vert2,weight))
+    
+    return T     
+    
 
 
 class  Cluster:
