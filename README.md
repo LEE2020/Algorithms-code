@@ -3,7 +3,7 @@
 
 
 
-### references:  introduction to algorithm illuminated /algorithm / algorithms design etc. 
+### references:   algorithm illuminated /introduction to algorithms / algorithms design etc. 
 
 
 * Divide and Conquer, Sorting and Searching, and Randomized Algorithms
