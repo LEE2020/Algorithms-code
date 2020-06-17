@@ -8,6 +8,7 @@ class HashTable:
     def insert(self, keys):
         for key in keys:
             self.array[key] = 1 # hash funciton f(x) =1 
+        #return self.array 
 
 def  load_data():
     data=[]
@@ -20,10 +21,12 @@ data = load_data()
 ht = HashTable()
 ht.insert(data)
 
+#print(ht.array)
+print("after hash funciton map") 
 def target(t):
-    for element in ht:
+    for element in ht.array:
         other = t - element 
-        if other in ht and other != element:
+        if other in ht.array  and other != element:
             return 1 
     return 0 	
 
@@ -32,7 +35,7 @@ count = 0
 for i in range(-10000,10001):
     if target(i):
         count +=1 
-    if i%1000 ==0 : print("now iiiiii   " +str(i))
+    if i%100 ==0 : print("now iiiiii   " +str(i))
 
 print(count) 
 
