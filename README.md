@@ -1,9 +1,9 @@
-# Algorithms-prof.-(stanford | online)
+# Algorithms
 
 
 
 
-### references:  introduction to algorithm / algorithms design etc. 
+### references:  introduction to algorithm illuminated /algorithm / algorithms design etc. 
 
 
 * Divide and Conquer, Sorting and Searching, and Randomized Algorithms
