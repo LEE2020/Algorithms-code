@@ -29,7 +29,7 @@ class  Cluster:
         return self.nclusters,min(cross_edges)
 if __name__ == "__main__":
     data = [] ; nodes = set()
-    with open('clustering1.txt') as f:
+    with open('test.txt') as f:
         for row in f:
             rows = row.strip().split() 
             if len(rows)<2 : continue

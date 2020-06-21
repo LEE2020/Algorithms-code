@@ -45,7 +45,7 @@ class  Cluster:
                     if self.nclusters[inx] == _j :
                         self.nclusters[inx] = _i 
                        
-            
+            # label all together the same label  
             #self.max_spacing.append(w)
             #print(len(set(self.nclusters.values())))
             #print(self.nclusters.values())

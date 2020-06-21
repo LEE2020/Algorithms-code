@@ -1,21 +1,18 @@
 import sys
 #import UnionFind from clustering
 from  unionfind  import UnionFind
-#from networkx.utils.union_find import UnionFind
 class UnionFind2:
     def __init__(self,data):
         self.nodes = {i:i for i,x  in enumerate(data)} 
     def find(self,p):
         return self.nodes[p]
-    def connected(self,p,q):
-        return self.find(p)  == self.find(q) 
     def union(self,list_tmp):
-        p = list_tmp[0]
-        
+        _i = self.nodes[list_tmp[0]]
+        list_tmp.pop(0)
         labels = [self.nodes[i] for i in list_tmp]
         for ind in self.nodes:
-            if self.find(ind) in labels  and  self.connected(ind,p) == False  :
-                self.nodes[ind] = self.find(p)
+            if self.nodes[ind] in labels:
+                self.nodes[ind] = _i
             
             
     def union2(self,p,q):
@@ -70,34 +67,22 @@ def cluster(data):
 
 
 def cluster_update(data,values_ind_map):
-    c = set([i for i in range(len(data))] )
+    c = [i for i in range(len(data))] 
     nf = UnionFind(c) 
     distance = hamming_dis() # distance 0 ,1, 2
     print(distance)
-    for ii in range(len(distance)):
-        i = distance[ii]
-        #print("now : distance ",i)
-        if i == 0:
-            for j in values_ind_map:
-                #print(i,j)
-                if len(values_ind_map[j])<=1 :continue
-                com = values_ind_map[j]
-                p  = com[0] 
-                [nf.union(p,q) for q in com[1:]]
-        else:
-            for j in values_ind_map:
+    for i in distance:
+        for j in values_ind_map:
             #print("i , : j ", i,j )
-                k = i^j
-                if k in values_ind_map:
+            k = i^j
+            if k in values_ind_map:
                                    
-                    nodes = values_ind_map[k]
-                    nodes2 = values_ind_map[j]
-                    com = list(set(nodes+nodes2))
-                    if len(com) <= 1 : continue
-                    p = com[0]
-                    [nf.union(p,q) for q in com[1:]]
+                nodes = values_ind_map[k]
+                nodes2 = values_ind_map[j]
                  
-    return nf.to_sets()
+                if len(set(nodes+nodes2)) <= 1 : continue
+                nf.union(list(set(nodes+nodes2)))
+    return nf.parents
 
 
 def decimal_to_binary(x):
@@ -116,7 +101,7 @@ if __name__ == "__main__":
     cnt = 0
     data=[]
     #data =[[] for i in range(200000)]
-    with open('clustering_big.txt') as f:
+    with open('test2.txt') as f:
         for row in f:  
             if flag == True:
                 flag = False
@@ -138,5 +123,5 @@ if __name__ == "__main__":
     #    [i for i,x in enumerate(data) if x == rst ] 
     print(len(data))         
     rst = cluster_update(data,values_ind_map)
-    print(len(list(rst)))
+    print(set(rst.values()))
  
