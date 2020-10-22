@@ -1,5 +1,4 @@
 # Algorithms 
-### by frona(frona_li@126.com)
 
 
 
